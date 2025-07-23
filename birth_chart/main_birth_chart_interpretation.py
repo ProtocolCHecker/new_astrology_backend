@@ -196,6 +196,7 @@
 
 
 import json
+import inspect
 
 from birth_chart_calculator import calculate_birth_chart
 from .house_interpretation.main_house_interpretation import (
