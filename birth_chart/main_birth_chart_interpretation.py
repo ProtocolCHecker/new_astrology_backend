@@ -235,8 +235,8 @@ def planet_house(planet_deg: float, houses: dict[int, float]) -> str:
 
 
 def compute_birth_chart(
-    birth_date: tuple[int,int,int],
-    birth_time: tuple[int,int,int],
+    birth_date: tuple[int, int, int],
+    birth_time: tuple[int, int, int],
     birth_place: str,
     gender: str = "other",
     tz_str: str = None,

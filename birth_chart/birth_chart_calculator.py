@@ -23,22 +23,19 @@ def calculate_birth_chart(
     birth_date,
     birth_time,
     birth_place,
-    *,
     tz_str: str = None,
     lat: float = None,
     lng: float = None
 ):
     """
     Calculate a birth chart. You can pass explicit tz_str/lat/lng to skip lookup.
-
     Args:
         birth_date: tuple (year, month, day)
         birth_time: tuple (hour, minute, second)
         birth_place: str
         tz_str: optional IANA timezone name
-        lat:  optional latitude
-        lng:  optional longitude
-
+        lat: optional latitude
+        lng: optional longitude
     Returns:
         dict with chart info.
     """
@@ -51,3 +48,4 @@ def calculate_birth_chart(
         lat=lat,
         lng=lng
     )
+
