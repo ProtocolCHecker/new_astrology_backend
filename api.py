@@ -113,12 +113,10 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
-
 # Import your refactored core functions
 from birth_chart.main_birth_chart_interpretation import compute_birth_chart
 from compatibility.main_compatibility import run_compatibility
 from prediction.main_transit_interpretation import run_transits
-
 # Import timezone helper
 from timezone_helper import timezone_helper
 
@@ -126,7 +124,6 @@ app = FastAPI(
     title="Astrology API v2",
     description="Astrology endpoints: birth-chart, compatibility, transit",
 )
-
 # CORS: allow your frontend origin
 app.add_middleware(
     CORSMiddleware,
@@ -134,7 +131,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 # Pydantic models for request bodies
 class BirthInfo(BaseModel):
     name: Optional[str] = None
@@ -145,16 +141,12 @@ class BirthInfo(BaseModel):
     lat: Optional[float] = None
     lng: Optional[float] = None
     tz_str: Optional[str] = None
-
 class CompatRequest(BaseModel):
     person1: BirthInfo
     person2: BirthInfo
-
 class TransitRequest(BaseModel):
     user: BirthInfo
     period: Optional[List[str]] = ["today","tomorrow","week-end","month-end","year-end"]
-
-
 def enrich_birth_info_with_timezone(birth_info: BirthInfo) -> BirthInfo:
     """Auto-calculate tz_str from lat/lng if missing."""
     if birth_info.lat is not None and birth_info.lng is not None and not birth_info.tz_str:
@@ -164,7 +156,6 @@ def enrich_birth_info_with_timezone(birth_info: BirthInfo) -> BirthInfo:
             fallback="UTC"
         )
     return birth_info
-
 @app.post("/birth-chart")
 def api_birth_chart(req: BirthInfo):
     try:
@@ -184,7 +175,6 @@ def api_birth_chart(req: BirthInfo):
         return {"status": "success", "data": data}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
 @app.post("/compatibility")
 def api_compat(req: CompatRequest):
     try:
@@ -215,7 +205,6 @@ def api_compat(req: CompatRequest):
         return {"status": "success", "data": result}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
 @app.post("/transit")
 def api_transit(req: TransitRequest):
     try:
@@ -239,7 +228,6 @@ def api_transit(req: TransitRequest):
         return {"status": "success", "data": result}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
 # For local testing only
 if __name__ == '__main__':
     import uvicorn

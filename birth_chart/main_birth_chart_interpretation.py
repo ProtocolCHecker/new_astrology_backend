@@ -202,6 +202,15 @@ from .house_interpretation.main_house_interpretation import (
     get_interpretation as get_house_interp,
     print_interpretation as print_house_interp
 )
+
+# Debug: Check the function signature
+print("=== DEBUG: calculate_birth_chart signature ===")
+sig = inspect.signature(calculate_birth_chart)
+print(f"Function: {calculate_birth_chart}")
+print(f"Signature: {sig}")
+print(f"Parameters: {list(sig.parameters.keys())}")
+print("=" * 50)
+
 # Use existing main interpretation modules
 from .sign_interpretation.main_sign_interpretation import interpret as interpret_sign
 from .aspects.main_aspects_interpreter import get_aspect_json
@@ -235,13 +244,13 @@ def planet_house(planet_deg: float, houses: dict[int, float]) -> str:
 
 
 def compute_birth_chart(
-    birth_date: tuple[int, int, int],
-    birth_time: tuple[int, int, int],
+    birth_date: tuple[int,int,int],
+    birth_time: tuple[int,int,int],
     birth_place: str,
-    gender: str = "other",
-    tz_str: str = None,
+    tz_str: str = None,      # ← Moved timezone params before gender
     lat: float = None,
-    lng: float = None
+    lng: float = None,
+    gender: str = "other"    # ← Moved gender to the end
 ) -> dict:
     """
     Returns a JSON-friendly dict with:
@@ -258,6 +267,7 @@ def compute_birth_chart(
         lat=lat,
         lng=lng
     )
+    
     data = chart.get("chart_data", {})
     planets = data.get("planets", {})
     houses  = data.get("houses", {})
@@ -270,6 +280,7 @@ def compute_birth_chart(
             sign_list.append(interpret_sign("Ascendant", asc["sign"], gender))
         except Exception as e:
             sign_list.append(f"<Error Ascendant {asc['sign']}: {e}>")
+
     for planet, info in planets.items():
         try:
             sign_list.append(interpret_sign(planet, info["sign"], gender))
@@ -284,6 +295,7 @@ def compute_birth_chart(
             house_list.append(json.dumps(h))
         except Exception as e:
             house_list.append(f"<Error ascendant 1st: {e}>")
+
     for planet,info in planets.items():
         deg = info.get("degree")
         if deg is not None:
