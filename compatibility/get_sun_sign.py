@@ -1,4 +1,4 @@
-from compatibility.birth_chart_calculator import calculate_birth_chart
+from birth_chart.birth_chart_calculator import calculate_birth_chart
 
 def get_sun_sign(birth_chart: dict) -> str:
     """
