@@ -145,7 +145,7 @@
 #     }
 
 import json
-from .birth_chart_calculator import calculate_birth_chart
+from birth_chart.birth_chart_calculator import calculate_birth_chart
 from .get_sun_sign import get_sun_sign
 from .score_compatibility_calculation import calculate_compatibility
 from .compatibility_interpretation import get_synastry_json, categorize_synastry
