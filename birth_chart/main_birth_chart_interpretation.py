@@ -200,6 +200,7 @@ import inspect
 
 #from birth_chart_calculator import calculate_birth_chart
 from .birth_chart_calculator import calculate_birth_chart
+
 from .house_interpretation.main_house_interpretation import (
     get_interpretation as get_house_interp,
     print_interpretation as print_house_interp

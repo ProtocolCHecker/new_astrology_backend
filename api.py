@@ -114,8 +114,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
 # Import your refactored core functions
-from birth_chart.main_birth_chart_interpretation import compute_birth_chart
-from compatibility.main_compatibility import run_compatibility
+from .birth_chart.main_birth_chart_interpretation import compute_birth_chart
+from .compatibility.main_compatibility import run_compatibility
 from prediction.main_transit_interpretation import run_transits
 # Import timezone helper
 from timezone_helper import timezone_helper
