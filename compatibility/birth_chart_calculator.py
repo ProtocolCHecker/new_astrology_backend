@@ -16,7 +16,7 @@
 #     return calculator.calculate_birth_chart(birth_date, birth_time, birth_place)
 
 
-from astrology_calculator import AstrologyCalculator
+from .astrology_calculator import AstrologyCalculator
 
 def calculate_birth_chart(
     birth_date,
