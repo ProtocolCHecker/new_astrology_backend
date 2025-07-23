@@ -80,13 +80,77 @@
 # if __name__ == "__main__":
 #     main()
 
-#!/usr/bin/env python3
+# #!/usr/bin/env python3
+# import json
+# from birth_chart_calculator import calculate_birth_chart
+# from .get_sun_sign import get_sun_sign
+# from .score_compatibility_calculation import calculate_compatibility
+# from .compatibility_interpretation import get_synastry_json, categorize_synastry
+# from kerykeion import AstrologicalSubject
+
+# def run_compatibility(p1: dict, p2: dict) -> dict:
+#     """
+#     Compute compatibility and synastry given two person dictionaries:
+#       {
+#         "name": str,
+#         "birth_date": (year, month, day),
+#         "birth_time": (hour, minute, second),
+#         "birth_place": str,
+#         "lat": float,
+#         "lng": float,
+#         "tz_str": str
+#       }
+#     Returns:
+#       {
+#         "sun1": str,
+#         "sun2": str,
+#         "compatibility": dict,
+#         "synastry": dict
+#       }
+#     """
+#     # Calculate natal charts and sun signs
+#     chart1 = calculate_birth_chart(p1["birth_date"], p1["birth_time"], p1["birth_place"])
+#     sun1 = get_sun_sign(chart1)
+#     chart2 = calculate_birth_chart(p2["birth_date"], p2["birth_time"], p2["birth_place"])
+#     sun2 = get_sun_sign(chart2)
+
+#     # Compute compatibility scores
+#     compat = calculate_compatibility(sun1, sun2)
+
+#     # Prepare AstrologicalSubject instances for synastry
+#     subj1 = AstrologicalSubject(
+#         name=p1['name'],
+#         year=p1['birth_date'][0], month=p1['birth_date'][1], day=p1['birth_date'][2],
+#         hour=p1['birth_time'][0], minute=p1['birth_time'][1],
+#         lat=p1['lat'], lng=p1['lng'],
+#         city=p1['birth_place'], tz_str=p1['tz_str']
+#     )
+#     subj2 = AstrologicalSubject(
+#         name=p2['name'],
+#         year=p2['birth_date'][0], month=p2['birth_date'][1], day=p2['birth_date'][2],
+#         hour=p2['birth_time'][0], minute=p2['birth_time'][1],
+#         lat=p2['lat'], lng=p2['lng'],
+#         city=p2['birth_place'], tz_str=p2['tz_str']
+#     )
+
+#     # Compute and categorize synastry
+#     synastry = get_synastry_json(subj1, subj2)
+#     grouped = categorize_synastry(synastry)
+
+#     return {
+#         "sun1": sun1,
+#         "sun2": sun2,
+#         "compatibility": compat,
+#         "synastry": grouped
+#     }
+
 import json
 from birth_chart_calculator import calculate_birth_chart
 from .get_sun_sign import get_sun_sign
 from .score_compatibility_calculation import calculate_compatibility
 from .compatibility_interpretation import get_synastry_json, categorize_synastry
 from kerykeion import AstrologicalSubject
+
 
 def run_compatibility(p1: dict, p2: dict) -> dict:
     """
@@ -108,10 +172,25 @@ def run_compatibility(p1: dict, p2: dict) -> dict:
         "synastry": dict
       }
     """
-    # Calculate natal charts and sun signs
-    chart1 = calculate_birth_chart(p1["birth_date"], p1["birth_time"], p1["birth_place"])
+    # Calculate natal charts (now passing tz & coords)
+    chart1 = calculate_birth_chart(
+        p1["birth_date"],
+        p1["birth_time"],
+        p1["birth_place"],
+        tz_str=p1.get("tz_str"),
+        lat=p1.get("lat"),
+        lng=p1.get("lng")
+    )
     sun1 = get_sun_sign(chart1)
-    chart2 = calculate_birth_chart(p2["birth_date"], p2["birth_time"], p2["birth_place"])
+
+    chart2 = calculate_birth_chart(
+        p2["birth_date"],
+        p2["birth_time"],
+        p2["birth_place"],
+        tz_str=p2.get("tz_str"),
+        lat=p2.get("lat"),
+        lng=p2.get("lng")
+    )
     sun2 = get_sun_sign(chart2)
 
     # Compute compatibility scores
@@ -133,7 +212,6 @@ def run_compatibility(p1: dict, p2: dict) -> dict:
         city=p2['birth_place'], tz_str=p2['tz_str']
     )
 
-    # Compute and categorize synastry
     synastry = get_synastry_json(subj1, subj2)
     grouped = categorize_synastry(synastry)
 
