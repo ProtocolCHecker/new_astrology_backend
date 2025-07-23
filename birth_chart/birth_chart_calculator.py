@@ -17,7 +17,7 @@
 
 # birth_chart_calculator.py
 
-from .birth_chart.astrology_calculator import AstrologyCalculator
+from .astrology_calculator import AstrologyCalculator
 
 def calculate_birth_chart(
     birth_date,
