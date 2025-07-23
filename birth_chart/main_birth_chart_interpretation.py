@@ -248,18 +248,36 @@ def compute_birth_chart(
     birth_date: tuple[int,int,int],
     birth_time: tuple[int,int,int],
     birth_place: str,
-    tz_str: str = None,      # ← Moved timezone params before gender
+    tz_str: str = None,
     lat: float = None,
     lng: float = None,
-    gender: str = "other"    # ← Moved gender to the end
+    gender: str = "other"
 ) -> dict:
     """
-    Returns a JSON-friendly dict with:
-      - sign_interpretations: list of strings
-      - house_interpretations: list of strings
-      - aspect_interpretations: list of strings
+    Debugging version - prints input params and function signature
     """
-    # Pass tz_str, lat, lng into calculator
+    # ===== DEBUG PRINT 1: Show incoming parameters =====
+    print("\n[DEBUG] Input parameters received:")
+    print(f"birth_date: {birth_date} (type: {type(birth_date)})")
+    print(f"birth_time: {birth_time} (type: {type(birth_time)})")
+    print(f"birth_place: {birth_place} (type: {type(birth_place)})")
+    print(f"tz_str: {tz_str} (type: {type(tz_str)})")
+    print(f"lat: {lat} (type: {type(lat)})")
+    print(f"lng: {lng} (type: {type(lng)})")
+
+    # ===== DEBUG PRINT 2: Show calculate_birth_chart's signature =====
+    from inspect import signature
+    sig = signature(calculate_birth_chart)
+    print("\n[DEBUG] calculate_birth_chart function signature:")
+    print(sig)
+    print("Parameter names:", list(sig.parameters.keys()))
+
+    # ===== DEBUG PRINT 3: Verify module path =====
+    import birth_chart_calculator
+    print("\n[DEBUG] birth_chart_calculator module path:")
+    print(birth_chart_calculator.__file__)
+
+    # Pass parameters to calculator (original code continues)
     chart = calculate_birth_chart(
         birth_date=birth_date,
         birth_time=birth_time,
