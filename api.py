@@ -110,12 +110,11 @@
 
 import sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent))
 
-# Force-add project root to Python path
-PROJECT_ROOT = str(Path(__file__).parent.resolve())
-sys.path.insert(0, PROJECT_ROOT)
-
-print(f"[DEBUG] Python Path: {sys.path}")  # Verify in Render logs
+# Temporary debug (remove after verification)
+print(f"[DEBUG] Project root: {Path(__file__).parent.resolve()}")
+print(f"[DEBUG] File exists: {(Path(__file__).parent/'birth_chart'/'birth_chart_calculator.py').exists()}")
 
 #!/usr/bin/env python3
 from fastapi import FastAPI, HTTPException
