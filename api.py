@@ -108,15 +108,13 @@
 #     uvicorn.run(app, host="0.0.0.0", port=8000, log_level="info")
 
 
-# Add to VERY TOP of api.py (before any other imports)
-import sys
-from pathlib import Path
-
-# Force absolute path resolution
-PROJECT_ROOT = str(Path(__file__).parent.resolve())
-sys.path.insert(0, PROJECT_ROOT)
-
-print(f"[DEBUG] Final Python Path: {sys.path}")  # Verify in logs
+try:
+    from birth_chart import calculate_birth_chart
+    print("✅ Birth chart import successful!")
+except Exception as e:
+    print(f"❌ Import failed: {str(e)}")
+    import traceback
+    traceback.print_exc()
 
 
 #!/usr/bin/env python3
