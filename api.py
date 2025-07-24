@@ -108,6 +108,15 @@
 #     uvicorn.run(app, host="0.0.0.0", port=8000, log_level="info")
 
 
+import sys
+from pathlib import Path
+
+# Force-add project root to Python path
+PROJECT_ROOT = str(Path(__file__).parent.resolve())
+sys.path.insert(0, PROJECT_ROOT)
+
+print(f"[DEBUG] Python Path: {sys.path}")  # Verify in Render logs
+
 #!/usr/bin/env python3
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
