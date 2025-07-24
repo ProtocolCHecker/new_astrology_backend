@@ -198,7 +198,7 @@
 import json
 import inspect
 
-#from birth_chart_calculator import calculate_birth_chart
+# Correct import from the local module
 from birth_chart import calculate_birth_chart
 
 from .house_interpretation.main_house_interpretation import (
@@ -274,13 +274,12 @@ def compute_birth_chart(
     print(sig)
     print("Parameter names:", list(sig.parameters.keys()))
 
-    # ===== DEBUG PRINT 3: Verify module path =====
-    import birth_chart_calculator
-    print("\n[DEBUG] birth_chart_calculator module path:")
-    print(birth_chart_calculator.__file__)
+    # ===== FIXED: Remove the problematic import and debug print =====
+    # The calculate_birth_chart function is already imported at the top
+    # No need to import birth_chart_calculator separately
 
-    # Pass parameters to calculator (original code continues)
-    chart = birth_chart.calculate_birth_chart(
+    # Pass parameters to calculator - USE THE IMPORTED FUNCTION DIRECTLY
+    chart = calculate_birth_chart(
         birth_date=birth_date,
         birth_time=birth_time,
         birth_place=birth_place,
@@ -415,4 +414,3 @@ def main(birth_date, birth_time, birth_place, gender: str = 'other'):
         print(f"{j['core_description']}\n")
         print(f"✨ {j['gender_description']}\n")
         print("\n" + "="*60 + "\n")
-
