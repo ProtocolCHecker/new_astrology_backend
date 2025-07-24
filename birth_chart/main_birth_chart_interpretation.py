@@ -280,7 +280,7 @@ def compute_birth_chart(
     print(birth_chart_calculator.__file__)
 
     # Pass parameters to calculator (original code continues)
-    chart = calculate_birth_chart(
+    chart = birth_chart.calculate_birth_chart(
         birth_date=birth_date,
         birth_time=birth_time,
         birth_place=birth_place,
